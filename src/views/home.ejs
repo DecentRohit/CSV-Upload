@@ -1,0 +1,74 @@
+<!-- Show all files in homepage -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Upload</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+    <h1>CSV File Upload</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="csvFile" accept=".csv" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Data</h2>
+    <form action="/" class="search-bar" method="get">
+        <input type="text" name="s" class="search-input" placeholder="Type full filename to Search" value="<%= searchVal || '' %>">
+        <!-- Search Bar Icon -->
+        <button>Search</button>
+    </form>
+
+   <!-- Files -->
+   <table class="files">
+    <thead class="thead">
+        <tr>
+            <th>SL. No</th>
+            <th class="header-1">File Name</th>
+            <th>Size(in kb)</th>
+            <th>View</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (searchVal && searchVal !== '') { %>
+            <!-- Search value is provided -->
+            <% for (let i = 0; i < files.length; i++) { %>
+                <% let sl = i + 1; %>
+                <% let file = files[i]; %>
+                <% if (file.originalname.includes(searchVal)) { %>
+                    <tr>
+                        <td><%= sl %></td>
+                        <td><%= file.originalname %></td>
+                        <td><%= file.size %></td>
+                        <td><a href="/view/<%= file._id %>">View</a></td>
+                        <td><a href="/delete/<%= file._id %>">Delete</a></td>
+                    </tr>
+                <% } %>
+            <% } %>
+        <% } else { %>
+            <!-- No search value provided, display all data -->
+            <% for (let i = 0; i < files.length; i++) { %>
+                <% let sl = i + 1; %>
+                <% let file = files[i]; %>
+                <tr>
+                    <td><%= sl %></td>
+                    <td><%= file.originalname %></td>
+                    <td><%= file.size %></td>
+                    <td><a href="/view/<%= file._id %>">View</a></td>
+                    <td><a href="/delete/<%= file._id %>">Delete</a></td>
+                </tr>
+            <% } %>
+        <% } %>
+    </tbody>
+</table>
+</div>
+</div>
+
+</body>
+
+</html>

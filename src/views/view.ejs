@@ -1,0 +1,46 @@
+<head>
+    <title>View CSV</title>
+    <link rel="stylesheet" href="/css/view.css">
+</head>
+
+<body>
+
+
+    <h1>
+        <%= file.originalname %>
+    </h1>
+    <a href="/">  <button id="back">Back to Home</button></a>
+    <!-- Search Bar -->
+    <form action="/view/<%= file._id %>" method="get">
+        <div class="search-bar">
+            <input type="text" name="q" class="search-input" placeholder="Type anything to Search"
+                value="<%= searchQuery || '' %>">
+            <!-- Search Bar Icon -->
+            <button type="submit">Search</button>
+        </div>
+    </form>
+    <!-- Table to Show CSV Data -->
+    <table class="table">
+        <thead class="thead">
+            <tr>
+                <% for (let header of tableHeaders) { %>
+                    <th>
+                        <%= header %>
+                    </th>
+                    <% } %>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let row of tableRows) { %>
+                <tr>
+                    <% for (let header of tableHeaders) { %>
+                        <td>
+                            <%= row[header] %>
+                        </td>
+                        <% } %>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+
+</body>
