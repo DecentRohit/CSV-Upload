@@ -1,4 +1,5 @@
 const uploadData = require('../models/datamodels');
+const data = require('../../public/uploads');
 const fs = require("fs");
 const csv = require('csv-parser');
 
@@ -52,7 +53,7 @@ module.exports.view = (req, res) => {
         return res.status(404).send("File not found");
       }
 
-      const filePath = file.path;
+      const filePath = path.join(__dirname, '../../public/uploads', file.filename);
 
       // Check if the file exists before attempting to read it
       const fileExists = fs.existsSync(filePath);
@@ -115,7 +116,7 @@ module.exports.delete = async (req, res) => {
     }
 
     // Remove the file from the file system
-    const filePath = file.path;
+    const filePath = path.join(__dirname, '../../public/uploads', file.filename);
     fs.unlinkSync(filePath);
 
     // Remove the file from the database
