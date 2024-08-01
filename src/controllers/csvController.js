@@ -1,5 +1,4 @@
 const uploadData = require('../models/datamodels');
-const data = require('../../public/uploads');
 const fs = require("fs");
 const csv = require('csv-parser');
 
